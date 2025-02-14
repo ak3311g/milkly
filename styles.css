@@ -1,0 +1,124 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #a7e6ff, #ffffff);
+    text-align: center;
+}
+
+header {
+    padding: 20px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 3rem;
+    color: #333;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    color: #ff5733;
+    margin-top: 20px;
+}
+
+.flavors span {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background: #ffcc00;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.flavors span:hover {
+    transform: scale(1.1);
+    background: #ff9900;
+}
+
+.flavors-section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+}
+
+.flavor {
+    width: 250px;
+    padding: 20px;
+    margin: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.flavor:hover {
+    transform: translateY(-10px);
+}
+
+.coming-soon {
+    padding: 50px;
+    font-size: 2rem;
+    background: #eee;
+}
+
+footer {
+    padding: 20px;
+    background: #222;
+    color: white;
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1.5s forwards;
+}
+
+.slide-in {
+    transform: translateY(-20px);
+    opacity: 0;
+    animation: slideIn 1s forwards;
+}
+
+.zoom-in {
+    transform: scale(0.8);
+    opacity: 0;
+    animation: zoomIn 1s forwards;
+}
+
+.bounce {
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
