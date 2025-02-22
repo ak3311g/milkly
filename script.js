@@ -1,67 +1,53 @@
-const carousel = document.querySelector('.carousel-inner');
+// script.js
+const carouselInner = document.querySelector('.carousel-inner');
 const items = document.querySelectorAll('.carousel-item');
-const totalItems = items.length;
 const prevButton = document.querySelector('.carousel-prev');
 const nextButton = document.querySelector('.carousel-next');
-let currentIndex = 1; // Start from the first cloned item
-let itemWidth = items[0].clientWidth;
 
-// Clone first and last items
-const firstClone = items[0].cloneNode(true);
-const lastClone = items[totalItems - 1].cloneNode(true);
-
-firstClone.classList.add('clone');
-lastClone.classList.add('clone');
-
-carousel.appendChild(firstClone);
-carousel.insertBefore(lastClone, items[0]);
+let currentIndex = 0;
+const totalItems = items.length / 2; // Only count unique items, not duplicates
+const itemWidth = items[0].offsetWidth;
 
 function updateCarousel() {
-    itemWidth = items[0].clientWidth; // Get updated width
-    carousel.style.transition = 'transform 0.5s ease-in-out';
-    carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    carouselInner.style.transition = 'transform 0.5s ease-in-out';
+    carouselInner.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
 }
 
-function moveToNext() {
+nextButton.addEventListener('click', () => {
     if (currentIndex >= totalItems) {
-        // Instantly reset to first without animation
-        carousel.style.transition = 'none';
-        currentIndex = 1;
-        carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        // Jump back to the start when reaching the duplicate set
+        carouselInner.style.transition = 'none';
+        currentIndex = 0;
+        updateCarousel();
         setTimeout(() => {
-            carousel.style.transition = 'transform 0.5s ease-in-out';
+            carouselInner.style.transition = 'transform 0.5s ease-in-out';
             currentIndex++;
             updateCarousel();
-        }, 20);
+        }, 50);
     } else {
         currentIndex++;
         updateCarousel();
     }
-}
+});
 
-function moveToPrev() {
+prevButton.addEventListener('click', () => {
     if (currentIndex <= 0) {
-        // Instantly move to last cloned item
-        carousel.style.transition = 'none';
-        currentIndex = totalItems - 1;
-        carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        // Jump to the end when reaching the start
+        carouselInner.style.transition = 'none';
+        currentIndex = totalItems;
+        updateCarousel();
         setTimeout(() => {
-            carousel.style.transition = 'transform 0.5s ease-in-out';
+            carouselInner.style.transition = 'transform 0.5s ease-in-out';
             currentIndex--;
             updateCarousel();
-        }, 20);
+        }, 50);
     } else {
         currentIndex--;
         updateCarousel();
     }
-}
+});
 
-prevButton.addEventListener('click', moveToPrev);
-nextButton.addEventListener('click', moveToNext);
-window.addEventListener('resize', updateCarousel);
-
-// Initial setup
-carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-
-// Auto move every 3 seconds
-setInterval(moveToNext, 3000);
+// Optional: Auto-scroll feature
+setInterval(() => {
+    nextButton.click();
+}, 3000);
